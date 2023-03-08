@@ -1,5 +1,6 @@
 import customtkinter
 
+from ui.FileExplorer import FileExplorer
 from ui.fonts import fonts
 
 
@@ -27,6 +28,13 @@ class OptionsFrame(customtkinter.CTkFrame):
                                                                      variable=self.workload_profile_var,
                                                                      command=self.change_workload_profile_event)
         self.workload_profile_selector.grid(column=3, row=1)
+
+        self.hash_file_explorer = FileExplorer(master=self, label_text="Hash/Hash File",
+                                               label_font=fonts.DESCRIPTION_LABEL,
+                                               placeholder_text="Hash/Path to hash file",
+                                               initial_dir="D:\\kit\\hashcat", dialog_title="Select Hash file",
+                                               file_types=(("text files", "*.txt"), ("all files", "*.*")))
+        self.hash_file_explorer.grid(column=0, row=2, columnspan=3, pady=10, padx=(10, 0))
 
     def change_device_type_event(self, selection):
         print(selection)
