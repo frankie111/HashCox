@@ -23,8 +23,9 @@ class HashTypeWindow(customtkinter.CTkToplevel):
 
         style = tkinter.ttk.Style(self.table)
         style.theme_use("clam")
-        style.configure("Treeview", background=colors.DARK_GRAY3, fieldbackground="black", foreground=colors.LIGHT_GRAY)
-        style.configure("Treeview.Heading", background=colors.DARK_GRAY2, foreground=colors.LIGHT_GRAY)
+        style.configure("Treeview", background=colors.GRAY10, fieldbackground=colors.GRAY10,
+                        foreground=colors.LIGHT_GRAY)
+        style.configure("Treeview.Heading", background=colors.GRAY10, foreground=colors.LIGHT_GRAY)
 
         self.table.heading("mode", text="Hash Mode")
         self.table.heading("name", text="Hash Name")

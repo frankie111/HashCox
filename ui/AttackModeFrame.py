@@ -1,7 +1,8 @@
 import customtkinter
 
 from configuration.config import HASHCAT_HOME
-from ui.FileExplorer import FileExplorer
+from ui.FileExplorerWidget import FileExplorerWidget
+from ui.colors import colors
 
 
 class AttackModeFrame(customtkinter.CTkFrame):
@@ -13,13 +14,14 @@ class AttackModeFrame(customtkinter.CTkFrame):
                                                              value=1, command=self.dict_radio_callback)
         self.dict_radiobutton.grid(column=0, row=0, sticky="w", pady=10)
 
-        self.dict_file_explorer = FileExplorer(master=self,
-                                               label_text="Dictionary File:",
-                                               placeholder_text="Path to dictionary file",
-                                               initial_dir=HASHCAT_HOME,
-                                               dialog_title="Select dictionary file",
-                                               file_types=(("text files", "*.txt"), ("all files", "*.*"))
-                                               )
+        self.dict_file_explorer = FileExplorerWidget(master=self,
+                                                     label_text="Dictionary File:",
+                                                     placeholder_text="Path to dictionary file",
+                                                     initial_dir=HASHCAT_HOME,
+                                                     dialog_title="Select dictionary file",
+                                                     file_types=(("text files", "*.txt"), ("all files", "*.*")),
+                                                     fg_color=colors.GRAY16
+                                                     )
         self.dict_file_explorer.grid(column=0, row=1, pady=10)
 
         self.brute_radiobutton = customtkinter.CTkRadioButton(self, text="Brute-Force", variable=self.radio_var,

@@ -2,7 +2,7 @@ import customtkinter
 
 from configuration.config import HASHCAT_HOME
 from ui.AttackModeFrame import AttackModeFrame
-from ui.FileExplorer import FileExplorer
+from ui.FileExplorerWidget import FileExplorerWidget
 from ui.HashTypeWindow import HashTypeWindow
 from ui.LabeledButton import LabeledButton
 from ui.LabeledOptionMenu import LabeledOptionMenu
@@ -40,11 +40,11 @@ class OptionsFrame(customtkinter.CTkFrame):
                                               button_callback=self.open_hash_type_window)
         self.hash_type_button.grid(column=2, row=1, sticky="e", padx=(10, 0))
 
-        self.hash_file_explorer = FileExplorer(master=self, label_text="Hash/Hash File:",
-                                               placeholder_text="Hash/Path to hash file",
-                                               initial_dir=HASHCAT_HOME,
-                                               dialog_title="Select Hash file",
-                                               file_types=(("text files", "*.txt"), ("all files", "*.*")))
+        self.hash_file_explorer = FileExplorerWidget(master=self, label_text="Hash/Hash File:",
+                                                     placeholder_text="Hash/Path to hash file",
+                                                     initial_dir=HASHCAT_HOME,
+                                                     dialog_title="Select Hash file",
+                                                     file_types=(("text files", "*.txt"), ("all files", "*.*")))
         self.hash_file_explorer.grid(column=0, row=2, columnspan=3, pady=10, padx=(10, 0))
 
         self.attack_mode_frame = AttackModeFrame(self)

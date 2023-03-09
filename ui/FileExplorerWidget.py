@@ -1,15 +1,19 @@
+import tkinter
 from tkinter import filedialog
 
 import customtkinter
 
+from ui.colors import colors
 from ui.fonts import fonts
 
 
-class FileExplorer(customtkinter.CTkFrame):
+class FileExplorerWidget(customtkinter.CTkFrame):
     def __init__(self, label_text, placeholder_text, initial_dir, dialog_title,
                  file_types, master: any, label_font=fonts.DESCRIPTION_LABEL,
+                 fg_color=colors.GRAY13,
                  **kwargs):
         super().__init__(master, **kwargs)
+        self.configure(fg_color=fg_color)
         self.file = ""
         self.initial_dir = initial_dir
         self.dialog_title = dialog_title
@@ -33,7 +37,9 @@ class FileExplorer(customtkinter.CTkFrame):
     def enable(self):
         for child in self.winfo_children():
             child.configure(state=customtkinter.NORMAL)
+            self.entry.configure(fg_color=colors.GRAY_ENTRY_ACTIVE)
 
     def disable(self):
         for child in self.winfo_children():
             child.configure(state=customtkinter.DISABLED)
+        self.entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
