@@ -37,7 +37,7 @@ class OptionsFrame(customtkinter.CTkFrame):
         self.hash_type_button = LabeledButton(master=self,
                                               label_text="Hash Type:",
                                               label_font=fonts.DESCRIPTION_LABEL,
-                                              button_text="choose hash",
+                                              button_text="MD5",
                                               button_callback=self.open_hash_type_window)
         self.hash_type_button.grid(column=2, row=1, sticky="e", padx=(10, 0))
 
@@ -56,6 +56,13 @@ class OptionsFrame(customtkinter.CTkFrame):
 
     def open_hash_type_window(self):
         if self.hash_window is None or not self.hash_window.winfo_exists():
-            self.hash_window = HashTypeWindow()  # create window if its None or destroyed
+            self.hash_window = HashTypeWindow(
+                selection_callback=self.change_button_text)  # create window if its None or destroyed
 
         self.hash_window.grab_set()  # Keep the window in focus
+
+    def change_button_text(self):
+        button_text_threshold = 16
+        text = self.hash_window.hash_type_selection[1]
+        trimmed_text = text[:button_text_threshold] if len(text) > button_text_threshold else text
+        self.hash_type_button.button_var.set(trimmed_text)

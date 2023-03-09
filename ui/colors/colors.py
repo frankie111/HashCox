@@ -1,0 +1,4 @@
+DARK_GRAY = "#262626"
+DARK_GRAY2 = "#1f1f1f"
+DARK_GRAY3 = "#1c1c1c"
+LIGHT_GRAY = "#d4d4d4"

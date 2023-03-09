@@ -1,7 +1,6 @@
 import customtkinter
 
 from ui.ExecSelectorFrame import ExecSelectorFrame
-from ui.HashTypeWindow import HashTypeWindow
 from ui.OptionsFrame import OptionsFrame
 
 customtkinter.set_appearance_mode("dark")
