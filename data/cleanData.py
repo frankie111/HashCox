@@ -11,11 +11,11 @@ def clean_data():
 
 
 def get_data_as_list_tuple():
-    with open("HashTypes.txt", "r") as f:
+    with open("data/HashTypes.txt", "r") as f:
         lines = f.readlines()
-    data = list(map(lambda line: line.replace("\n", "").split("|"), lines))
-    print(data)
+    data = tuple(map(lambda line: tuple(line.replace("\n", "").split("|")), lines))
+    return data
 
 
-clean_data()
-get_data_as_list_tuple()
+# clean_data()
+# get_data_as_list_tuple()
