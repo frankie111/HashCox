@@ -1,6 +1,8 @@
 import customtkinter
 
 from ui.FileExplorer import FileExplorer
+from ui.HashTypeWindow import HashTypeWindow
+from ui.LabeledButton import LabeledButton
 from ui.LabeledOptionMenu import LabeledOptionMenu
 from ui.fonts import fonts
 
@@ -8,6 +10,7 @@ from ui.fonts import fonts
 class OptionsFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
+        self.hash_window = None
         self.device_type_var = customtkinter.StringVar(value="1 - CPU")
         self.workload_profile_var = customtkinter.StringVar(value="2 - Default")
 
@@ -29,25 +32,30 @@ class OptionsFrame(customtkinter.CTkFrame):
                                                                     "4 - Nightmare"],
                                                        menu_default="2 - Default",
                                                        menu_callback=self.workload_profile_menu_callback)
-        self.workload_profile_menu.grid(column=1, row=1, sticky="e")
+        self.workload_profile_menu.grid(column=1, row=1, sticky="e", padx=(10, 0))
 
-        # self.workload_label = customtkinter.CTkLabel(self, text="Workload Profile:", font=fonts.DESCRIPTION_LABEL)
-        # self.workload_label.grid(column=2, row=1, padx=5, sticky="e")
-        # self.workload_profile_menu = customtkinter.CTkOptionMenu(self, values=["1 - Low", "2 - Default", "3 - High",
-        #                                                                        "4 - Nightmare"],
-        #                                                          variable=self.workload_profile_var,
-        #                                                          command=self.change_workload_profile_event)
-        # self.workload_profile_menu.grid(column=3, row=1, sticky="w")
+        self.hash_type_button = LabeledButton(master=self,
+                                              label_text="Hash Type:",
+                                              label_font=fonts.DESCRIPTION_LABEL,
+                                              button_text="choose hash",
+                                              button_callback=self.open_hash_type_window)
+        self.hash_type_button.grid(column=2, row=1, sticky="e", padx=(10, 0))
 
         self.hash_file_explorer = FileExplorer(master=self, label_text="Hash/Hash File",
                                                label_font=fonts.DESCRIPTION_LABEL,
                                                placeholder_text="Hash/Path to hash file",
                                                initial_dir="D:\\kit\\hashcat", dialog_title="Select Hash file",
                                                file_types=(("text files", "*.txt"), ("all files", "*.*")))
-        self.hash_file_explorer.grid(column=0, row=2, columnspan=2, pady=10, padx=(10, 0), sticky="w")
+        self.hash_file_explorer.grid(column=0, row=2, columnspan=3, pady=10, padx=(10, 0))
 
     def device_type_menu_callback(self, selection):
         print(selection)
 
     def workload_profile_menu_callback(self, selection):
         print(selection)
+
+    def open_hash_type_window(self):
+        if self.hash_window is None or not self.hash_window.winfo_exists():
+            self.hash_window = HashTypeWindow()  # create window if its None or destroyed
+
+        self.hash_window.grab_set()  # Keep the window in focus

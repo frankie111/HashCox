@@ -1,6 +1,7 @@
 import customtkinter
 
 from ui.ExecSelectorFrame import ExecSelectorFrame
+from ui.HashTypeWindow import HashTypeWindow
 from ui.OptionsFrame import OptionsFrame
 
 customtkinter.set_appearance_mode("dark")
@@ -8,7 +9,7 @@ customtkinter.set_default_color_theme("dark-blue")
 
 
 class App(customtkinter.CTk):
-    width = 900
+    width = 800
     height = 600
 
     def __init__(self):

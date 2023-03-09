@@ -4,7 +4,8 @@ import customtkinter
 
 
 class FileExplorer(customtkinter.CTkFrame):
-    def __init__(self, label_text, label_font, placeholder_text, initial_dir, dialog_title, file_types, master: any, **kwargs):
+    def __init__(self, label_text, label_font, placeholder_text, initial_dir, dialog_title, file_types, master: any,
+                 **kwargs):
         super().__init__(master, **kwargs)
         self.file = ""
         self.initial_dir = initial_dir
