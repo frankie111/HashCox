@@ -1,5 +1,7 @@
 import customtkinter
 
+from configuration.config import HASHCAT_HOME
+from ui.AttackModeFrame import AttackModeFrame
 from ui.FileExplorer import FileExplorer
 from ui.HashTypeWindow import HashTypeWindow
 from ui.LabeledButton import LabeledButton
@@ -18,7 +20,6 @@ class OptionsFrame(customtkinter.CTkFrame):
         self.options_title_label.grid(column=0, row=0, columnspan=4, pady=5)
 
         self.device_type_menu = LabeledOptionMenu(master=self, label_text="Device Type:",
-                                                  label_font=fonts.DESCRIPTION_LABEL,
                                                   menu_values=["1 - CPU", "2 - GPU",
                                                                "3 - FPGA, DSP, Co-Processor"],
                                                   menu_default="1 - CPU",
@@ -27,7 +28,6 @@ class OptionsFrame(customtkinter.CTkFrame):
 
         self.workload_profile_menu = LabeledOptionMenu(master=self,
                                                        label_text="Workload Profile:",
-                                                       label_font=fonts.DESCRIPTION_LABEL,
                                                        menu_values=["1 - Low", "2 - Default", "3 - High",
                                                                     "4 - Nightmare"],
                                                        menu_default="2 - Default",
@@ -36,17 +36,19 @@ class OptionsFrame(customtkinter.CTkFrame):
 
         self.hash_type_button = LabeledButton(master=self,
                                               label_text="Hash Type:",
-                                              label_font=fonts.DESCRIPTION_LABEL,
                                               button_text="MD5",
                                               button_callback=self.open_hash_type_window)
         self.hash_type_button.grid(column=2, row=1, sticky="e", padx=(10, 0))
 
-        self.hash_file_explorer = FileExplorer(master=self, label_text="Hash/Hash File",
-                                               label_font=fonts.DESCRIPTION_LABEL,
+        self.hash_file_explorer = FileExplorer(master=self, label_text="Hash/Hash File:",
                                                placeholder_text="Hash/Path to hash file",
-                                               initial_dir="D:\\kit\\hashcat", dialog_title="Select Hash file",
+                                               initial_dir=HASHCAT_HOME,
+                                               dialog_title="Select Hash file",
                                                file_types=(("text files", "*.txt"), ("all files", "*.*")))
         self.hash_file_explorer.grid(column=0, row=2, columnspan=3, pady=10, padx=(10, 0))
+
+        self.attack_mode_frame = AttackModeFrame(self)
+        self.attack_mode_frame.grid(column=0, row=3, columnspan=3)
 
     def device_type_menu_callback(self, selection):
         print(selection)

@@ -1,8 +1,10 @@
 import customtkinter
 
+from ui.fonts import fonts
+
 
 class LabeledButton(customtkinter.CTkFrame):
-    def __init__(self, master: any, label_text, label_font, button_text="", button_callback=None, **kwargs):
+    def __init__(self, master: any, label_text, label_font=fonts.DESCRIPTION_LABEL, button_text="", button_callback=None, **kwargs):
         super().__init__(master, **kwargs)
         self.button_var = customtkinter.StringVar(value=button_text)
         self.label_text = label_text

@@ -1,11 +1,11 @@
 # Convert Hash Type list from hashcat wiki to usable format
 
 def clean_data():
-    with open("HashTypes.raw", "r") as raw_file:
+    with open("data/HashTypesRaw.txt", "r") as raw_file:
         lines: list[str] = raw_file.readlines()
         lines = list(map(lambda line: line.replace(" ", ""), lines))
 
-    with open("HashTypes.txt", "w") as clean_file:
+    with open("data/HashTypes.txt", "w") as clean_file:
         for _line in lines:
             clean_file.write(_line)
 

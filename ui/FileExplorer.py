@@ -2,9 +2,12 @@ from tkinter import filedialog
 
 import customtkinter
 
+from ui.fonts import fonts
+
 
 class FileExplorer(customtkinter.CTkFrame):
-    def __init__(self, label_text, label_font, placeholder_text, initial_dir, dialog_title, file_types, master: any,
+    def __init__(self, label_text, placeholder_text, initial_dir, dialog_title,
+                 file_types, master: any, label_font=fonts.DESCRIPTION_LABEL,
                  **kwargs):
         super().__init__(master, **kwargs)
         self.file = ""
@@ -26,3 +29,11 @@ class FileExplorer(customtkinter.CTkFrame):
                                                filetypes=self.file_types)
         if self.file != "":
             self.entry.insert(0, self.file)
+
+    def enable(self):
+        for child in self.winfo_children():
+            child.configure(state=customtkinter.NORMAL)
+
+    def disable(self):
+        for child in self.winfo_children():
+            child.configure(state=customtkinter.DISABLED)

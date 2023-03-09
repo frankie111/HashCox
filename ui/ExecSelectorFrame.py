@@ -3,6 +3,7 @@ from tkinter import filedialog
 
 import customtkinter
 
+from configuration.config import HASHCAT_HOME
 from ui.FileExplorer import FileExplorer
 from ui.fonts import fonts
 
@@ -20,7 +21,7 @@ class ExecSelectorFrame(customtkinter.CTkFrame):
         self.exec_file_explorer = FileExplorer(master=self, label_text="Hashcat Executable:",
                                                label_font=fonts.DESCRIPTION_LABEL,
                                                placeholder_text="Path to hashcat executable",
-                                               initial_dir="D:\\kit\\hashcat",
+                                               initial_dir=HASHCAT_HOME,
                                                dialog_title="Select the hashcat executable",
                                                file_types=(("executables", "*.exe"), ("all files", "*.*")))
         self.exec_file_explorer.grid(column=0, row=1, columnspan=4, padx=(10, 0), pady=10)
