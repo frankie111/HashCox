@@ -1,4 +1,3 @@
-import tkinter
 from tkinter import filedialog
 
 import customtkinter
@@ -37,7 +36,7 @@ class FileExplorerWidget(customtkinter.CTkFrame):
     def enable(self):
         for child in self.winfo_children():
             child.configure(state=customtkinter.NORMAL)
-            self.entry.configure(fg_color=colors.GRAY_ENTRY_ACTIVE)
+        self.entry.configure(fg_color=colors.GRAY_ENTRY_ACTIVE)
 
     def disable(self):
         for child in self.winfo_children():

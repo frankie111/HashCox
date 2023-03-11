@@ -1,10 +1,9 @@
 # Frame for selecting hashcat executable
-from tkinter import filedialog
 
 import customtkinter
 
 from configuration.config import HASHCAT_HOME
-from ui.FileExplorerWidget import FileExplorerWidget
+from ui.Widgets.FileExplorerWidget import FileExplorerWidget
 from ui.fonts import fonts
 
 

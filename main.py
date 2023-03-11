@@ -1,7 +1,7 @@
 import customtkinter
 
-from ui.ExecSelectorFrame import ExecSelectorFrame
-from ui.OptionsFrame import OptionsFrame
+from ui.frames.ExecSelectorFrame import ExecSelectorFrame
+from ui.frames.OptionsFrame import OptionsFrame
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")

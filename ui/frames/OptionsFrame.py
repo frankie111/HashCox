@@ -1,11 +1,11 @@
 import customtkinter
 
 from configuration.config import HASHCAT_HOME
-from ui.AttackModeFrame import AttackModeFrame
-from ui.FileExplorerWidget import FileExplorerWidget
-from ui.HashTypeWindow import HashTypeWindow
-from ui.LabeledButton import LabeledButton
-from ui.LabeledOptionMenu import LabeledOptionMenu
+from ui.frames.AttackModeFrame import AttackModeFrame
+from ui.Widgets.FileExplorerWidget import FileExplorerWidget
+from ui.windows.HashTypeWindow import HashTypeWindow
+from ui.Widgets.LabeledButton import LabeledButton
+from ui.Widgets.LabeledOptionMenu import LabeledOptionMenu
 from ui.fonts import fonts
 
 
