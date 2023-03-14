@@ -17,7 +17,7 @@ class AttackModeFrame(customtkinter.CTkFrame):
 
         self.dict_radiobutton = customtkinter.CTkRadioButton(self, text="Dictionary", variable=self.radio_var,
                                                              value=1, command=self.dict_radio_callback)
-        self.dict_radiobutton.grid(column=0, row=1, sticky="w", pady=10, padx=10)
+        self.dict_radiobutton.grid(column=0, row=1, sticky="w", pady=5, padx=10)
 
         self.dict_file_explorer = FileExplorerWidget(master=self,
                                                      label_text="Dictionary File:",
@@ -27,11 +27,11 @@ class AttackModeFrame(customtkinter.CTkFrame):
                                                      file_types=(("text files", "*.txt"), ("all files", "*.*")),
                                                      fg_color=colors.GRAY16
                                                      )
-        self.dict_file_explorer.grid(column=0, row=2, pady=10, padx=10)
+        self.dict_file_explorer.grid(column=0, row=2, pady=5, padx=10)
 
         self.brute_radiobutton = customtkinter.CTkRadioButton(master=self, text="Brute-Force", variable=self.radio_var,
                                                               value=2, command=self.brute_radio_callback)
-        self.brute_radiobutton.grid(column=0, row=3, sticky="w", pady=10, padx=10)
+        self.brute_radiobutton.grid(column=0, row=3, sticky="w", pady=5, padx=10)
 
         self.brute_force_frame = BruteForceFrame(master=self, fg_color=colors.GRAY16)
         self.brute_force_frame.disable()
