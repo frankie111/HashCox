@@ -59,7 +59,7 @@ class BruteForceFrame(customtkinter.CTkFrame):
         self.mask_entry.grid(column=0, row=4, sticky="w", padx=(25, 0))
 
         self.custom_charsets_frame = CustomCharsetsFrame(master=self)
-        self.custom_charsets_frame.grid(column=1, row=0)
+        self.custom_charsets_frame.grid(column=1, row=0, rowspan=4)
 
     def alpha_lower_callback(self):
         self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
@@ -79,7 +79,10 @@ class BruteForceFrame(customtkinter.CTkFrame):
 
     def enable(self):
         for child in self.winfo_children():
-            child.configure(state=customtkinter.NORMAL)
+            if child.widgetName != 'frame':  # frame has no state, so skip
+                child.configure(state='normal')
+
+        self.custom_charsets_frame.enable()
 
         if self.radio_var != 4:
             self.mask_entry.configure(state=customtkinter.DISABLED, fg_color=colors.GRAY_ENTRY_DISABLED)
@@ -88,5 +91,7 @@ class BruteForceFrame(customtkinter.CTkFrame):
 
     def disable(self):
         for child in self.winfo_children():
-            child.configure(state=customtkinter.DISABLED)
+            if child.widgetName != 'frame':  # frame has no state, so skip
+                child.configure(state='disabled')
         self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
+        self.custom_charsets_frame.disable()
