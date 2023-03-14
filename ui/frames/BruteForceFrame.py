@@ -3,6 +3,7 @@ from tkinter import LEFT
 import customtkinter
 from custom_hovertip import CustomTooltipLabel
 
+from ui.Widgets.LabeledSpinbox import LabeledSpinbox
 from ui.colors import colors
 from ui.fonts import fonts
 from ui.frames.CustomCharsetsFrame import CustomCharsetsFrame
@@ -11,6 +12,8 @@ from ui.frames.CustomCharsetsFrame import CustomCharsetsFrame
 class BruteForceFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
+        self.min_password_len = 1
+        self.max_password_len = 40
 
         self.radio_var = customtkinter.IntVar(value=1)
 
@@ -61,37 +64,58 @@ class BruteForceFrame(customtkinter.CTkFrame):
         self.custom_charsets_frame = CustomCharsetsFrame(master=self)
         self.custom_charsets_frame.grid(column=1, row=0, rowspan=4)
 
+        self.min_len_spinbox = LabeledSpinbox(master=self, label_text="min password length:", default_value=6,
+                                              min_value=self.min_password_len,
+                                              max_value=self.max_password_len)
+        self.min_len_spinbox.grid(column=0, row=5, rowspan=2, sticky="w", padx=(10, 20), pady=10)
+
+        self.max_len_spinbox = LabeledSpinbox(master=self, label_text="max password length:", default_value=8,
+                                              min_value=self.min_password_len,
+                                              max_value=self.max_password_len)
+        self.max_len_spinbox.grid(column=1, row=5, rowspan=2, sticky="w", pady=10)
+
     def alpha_lower_callback(self):
-        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
-        self.mask_entry.configure(state=customtkinter.DISABLED)
+        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED, state=customtkinter.DISABLED)
+        self.custom_charsets_frame.disable()
 
     def alpha_upper_callback(self):
-        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
-        self.mask_entry.configure(state=customtkinter.DISABLED)
+        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED, state=customtkinter.DISABLED)
+        self.custom_charsets_frame.disable()
 
     def numeric_radio_callback(self):
-        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
-        self.mask_entry.configure(state=customtkinter.DISABLED)
+        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED, state=customtkinter.DISABLED)
+        self.custom_charsets_frame.disable()
 
     def custom_mask_radio_callback(self):
-        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_ACTIVE)
-        self.mask_entry.configure(state=customtkinter.NORMAL)
-
-    def enable(self):
-        for child in self.winfo_children():
-            if child.widgetName != 'frame':  # frame has no state, so skip
-                child.configure(state='normal')
-
+        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_ACTIVE, state=customtkinter.NORMAL)
         self.custom_charsets_frame.enable()
 
-        if self.radio_var != 4:
-            self.mask_entry.configure(state=customtkinter.DISABLED, fg_color=colors.GRAY_ENTRY_DISABLED)
-        else:
+    def enable(self):
+        for radio_button in self.alpha_upper_radiobutton, \
+                self.alpha_lower_radiobutton, \
+                self.numeric_radiobutton, \
+                self.custom_mask_radiobutton:
+            radio_button.configure(state='normal')
+
+        if self.radio_var.get() == 4:
             self.mask_entry.configure(state=customtkinter.NORMAL, fg_color=colors.GRAY_ENTRY_ACTIVE)
+            self.custom_charsets_frame.enable()
+        else:
+            self.mask_entry.configure(state=customtkinter.DISABLED, fg_color=colors.GRAY_ENTRY_DISABLED)
+            self.custom_charsets_frame.disable()
+
+        self.min_len_spinbox.enable()
+        self.max_len_spinbox.enable()
 
     def disable(self):
-        for child in self.winfo_children():
-            if child.widgetName != 'frame':  # frame has no state, so skip
-                child.configure(state='disabled')
-        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED)
+        for radio_button in self.alpha_upper_radiobutton, \
+                self.alpha_lower_radiobutton, \
+                self.numeric_radiobutton, \
+                self.custom_mask_radiobutton:
+            radio_button.configure(state='disabled')
+
+        self.mask_entry.configure(fg_color=colors.GRAY_ENTRY_DISABLED,
+                                  state='disabled')
         self.custom_charsets_frame.disable()
+        self.min_len_spinbox.disable()
+        self.max_len_spinbox.disable()

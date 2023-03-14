@@ -8,19 +8,22 @@ class CustomCharsetsFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.entry1 = LabeledEntry(master=self, label_text="Charset #1")
-        self.entry1.grid(column=0, row=0)
-        self.entry2 = LabeledEntry(master=self, label_text="Charset #2")
-        self.entry2.grid(column=0, row=1)
-        self.entry3 = LabeledEntry(master=self, label_text="Charset #3")
-        self.entry3.grid(column=0, row=2)
-        self.entry4 = LabeledEntry(master=self, label_text="Charset #4")
-        self.entry4.grid(column=0, row=3)
+        self.configure(fg_color=colors.GRAY16, border_width=2)
+
+        self.entries = []
+        for i in range(0, 4):
+            self.entries.append(LabeledEntry(master=self,
+                                             label_text=f"Charset #{i + 1}",
+                                             fg_color=colors.GRAY16,
+                                             placeholder="123abc?!"))
+            self.entries[i].grid(column=0, row=i)
+
+        self.disable()
 
     def enable(self):
-        for entry in self.entry1, self.entry2, self.entry3, self.entry4:
+        for entry in self.entries:
             entry.enable()
 
     def disable(self):
-        for entry in self.entry1, self.entry2, self.entry3, self.entry4:
+        for entry in self.entries:
             entry.disable()
