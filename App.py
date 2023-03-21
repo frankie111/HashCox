@@ -26,8 +26,22 @@ class App(customtkinter.CTk):
         self.options_frame = OptionsFrame(master=self, border_width=2)
         self.options_frame.grid(column=0, row=1, ipadx=10, ipady=5, pady=5, sticky="e")
 
-        self.run_frame = RunFrame(master=self)
+        self.run_frame = RunFrame(master=self, run_callback=self.run_callback)
         self.run_frame.grid(column=0, row=2)
+
+    def run_callback(self):
+        hashcat_location = self.exec_selector_frame.exec_file_explorer.file_text_variable.get()
+        hash_path = self.options_frame.hash_file_explorer.file_text_variable.get()
+        hash_type = self.options_frame.hash_type
+        device_type = self.options_frame.device_type_var.get()
+        workload_profile = self.options_frame.workload_profile_var.get()
+
+        print(hashcat_location)
+        print(hash_type)
+        print(hash_path)
+        print(device_type)
+        print(workload_profile)
+        pass
 
 
 if __name__ == '__main__':

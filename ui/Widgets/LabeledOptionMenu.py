@@ -13,6 +13,6 @@ class LabeledOptionMenu(customtkinter.CTkFrame):
         self.label = customtkinter.CTkLabel(self, text=label_text, font=label_font)
         self.label.grid(column=0, row=0, padx=(0, 10))
 
-        self.menu = customtkinter.CTkOptionMenu(self, values=menu_values, variable=self.menu_var,
+        self.menu = customtkinter.CTkOptionMenu(self, dynamic_resizing=False, values=menu_values, variable=self.menu_var,
                                                 command=self.menu_callback)
         self.menu.grid(column=1, row=0)

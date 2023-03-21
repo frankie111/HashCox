@@ -22,28 +22,28 @@ class BruteForceFrame(customtkinter.CTkFrame):
                                                                     variable=self.radio_var,
                                                                     value=1,
                                                                     command=self.alpha_lower_callback)
-        self.alpha_lower_radiobutton.grid(column=0, row=0, sticky="w")
+        self.alpha_lower_radiobutton.grid(column=0, row=0, sticky="w", padx=(20, 0))
 
         self.alpha_upper_radiobutton = customtkinter.CTkRadioButton(master=self,
                                                                     text="Upper Alpha (A..Z)",
                                                                     variable=self.radio_var,
                                                                     value=2,
                                                                     command=self.alpha_upper_callback)
-        self.alpha_upper_radiobutton.grid(column=0, row=1, sticky="w")
+        self.alpha_upper_radiobutton.grid(column=0, row=1, sticky="w", padx=(20, 0))
 
         self.numeric_radiobutton = customtkinter.CTkRadioButton(master=self,
                                                                 text="Numeric (0..9)",
                                                                 variable=self.radio_var,
                                                                 value=3,
                                                                 command=self.numeric_radio_callback)
-        self.numeric_radiobutton.grid(column=0, row=2, sticky="w")
+        self.numeric_radiobutton.grid(column=0, row=2, sticky="w", padx=(20, 0))
 
         self.custom_mask_radiobutton = customtkinter.CTkRadioButton(master=self,
                                                                     text="Custom Mask",
                                                                     variable=self.radio_var,
                                                                     value=4,
                                                                     command=self.custom_mask_radio_callback)
-        self.custom_mask_radiobutton.grid(column=0, row=3, sticky="w")
+        self.custom_mask_radiobutton.grid(column=0, row=3, sticky="w", padx=(20, 0))
 
         self.mask_tooltip = CustomTooltipLabel(anchor_widget=self.custom_mask_radiobutton,
                                                text="l = a-z\nu = A-Z\nd = 0-9\n"
@@ -67,7 +67,7 @@ class BruteForceFrame(customtkinter.CTkFrame):
         self.min_len_spinbox = LabeledSpinbox(master=self, label_text="min password length:", default_value=6,
                                               min_value=self.min_password_len,
                                               max_value=self.max_password_len)
-        self.min_len_spinbox.grid(column=0, row=5, rowspan=2, sticky="w", padx=(10, 20), pady=10)
+        self.min_len_spinbox.grid(column=0, row=5, rowspan=2, sticky="w", padx=(20, 20), pady=10)
 
         self.max_len_spinbox = LabeledSpinbox(master=self, label_text="max password length:", default_value=8,
                                               min_value=self.min_password_len,

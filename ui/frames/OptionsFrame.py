@@ -1,17 +1,18 @@
 import customtkinter
 
 from configuration.config import HASHCAT_HOME
-from ui.frames.AttackModeFrame import AttackModeFrame
 from ui.Widgets.FileExplorerWidget import FileExplorerWidget
-from ui.windows.HashTypeWindow import HashTypeWindow
 from ui.Widgets.LabeledButton import LabeledButton
 from ui.Widgets.LabeledOptionMenu import LabeledOptionMenu
 from ui.fonts import fonts
+from ui.frames.AttackModeFrame import AttackModeFrame
+from ui.windows.HashTypeWindow import HashTypeWindow
 
 
 class OptionsFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
+        self.hash_type = 0
         self.hash_window = None
         self.device_type_var = customtkinter.StringVar(value="1 - CPU")
         self.workload_profile_var = customtkinter.StringVar(value="2 - Default")
@@ -23,7 +24,8 @@ class OptionsFrame(customtkinter.CTkFrame):
                                                   menu_values=["1 - CPU", "2 - GPU",
                                                                "3 - FPGA, DSP, Co-Processor"],
                                                   menu_default="1 - CPU",
-                                                  menu_callback=self.device_type_menu_callback)
+                                                  menu_callback=self.device_type_menu_callback,
+                                                  )
         self.device_type_menu.grid(column=0, row=1, padx=(10, 0))
 
         self.workload_profile_menu = LabeledOptionMenu(master=self,
@@ -51,10 +53,10 @@ class OptionsFrame(customtkinter.CTkFrame):
         self.attack_mode_frame.grid(column=0, row=3, columnspan=3, padx=10, ipadx=10, ipady=10)
 
     def device_type_menu_callback(self, selection):
-        print(selection)
+        self.device_type_var.set(selection)
 
     def workload_profile_menu_callback(self, selection):
-        print(selection)
+        self.workload_profile_var.set(selection)
 
     def open_hash_type_window(self):
         if self.hash_window is None or not self.hash_window.winfo_exists():
@@ -64,6 +66,7 @@ class OptionsFrame(customtkinter.CTkFrame):
         self.hash_window.grab_set()  # Keep the window in focus
 
     def change_button_text(self):
+        self.hash_type = self.hash_window.hash_type_selection[0]
         button_text_threshold = 16
         text = self.hash_window.hash_type_selection[1]
         trimmed_text = text[:button_text_threshold] if len(text) > button_text_threshold else text
