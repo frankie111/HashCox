@@ -1,5 +1,8 @@
+import os
+
 import customtkinter
 
+from logic import commandBuilder
 from ui.frames.ExecSelectorFrame import ExecSelectorFrame
 from ui.frames.OptionsFrame import OptionsFrame
 from ui.frames.RunFrame import RunFrame
@@ -30,18 +33,8 @@ class App(customtkinter.CTk):
         self.run_frame.grid(column=0, row=2)
 
     def run_callback(self):
-        hashcat_location = self.exec_selector_frame.exec_file_explorer.file_text_variable.get()
-        hash_path = self.options_frame.hash_file_explorer.file_text_variable.get()
-        hash_type = self.options_frame.hash_type
-        device_type = self.options_frame.device_type_var.get()
-        workload_profile = self.options_frame.workload_profile_var.get()
-
-        print(hashcat_location)
-        print(hash_type)
-        print(hash_path)
-        print(device_type)
-        print(workload_profile)
-        pass
+        command = commandBuilder.build_command(self)
+        os.system(f'start cmd /k "{command}"')
 
 
 if __name__ == '__main__':
