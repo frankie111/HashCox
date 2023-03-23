@@ -12,8 +12,8 @@ from ui.frames.CustomCharsetsFrame import CustomCharsetsFrame
 class BruteForceFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
-        self.min_password_len = 1
-        self.max_password_len = 40
+        self.__min_password_len = 1
+        self.__max_password_len = 40
 
         self.radio_var = customtkinter.IntVar(value=1)
 
@@ -65,13 +65,13 @@ class BruteForceFrame(customtkinter.CTkFrame):
         self.custom_charsets_frame.grid(column=1, row=0, rowspan=4)
 
         self.min_len_spinbox = LabeledSpinbox(master=self, label_text="min password length:", default_value=6,
-                                              min_value=self.min_password_len,
-                                              max_value=self.max_password_len)
+                                              min_value=self.__min_password_len,
+                                              max_value=self.__max_password_len)
         self.min_len_spinbox.grid(column=0, row=5, rowspan=2, sticky="w", padx=(20, 20), pady=10)
 
         self.max_len_spinbox = LabeledSpinbox(master=self, label_text="max password length:", default_value=8,
-                                              min_value=self.min_password_len,
-                                              max_value=self.max_password_len)
+                                              min_value=self.__min_password_len,
+                                              max_value=self.__max_password_len)
         self.max_len_spinbox.grid(column=1, row=5, rowspan=2, sticky="w", pady=10)
 
     def alpha_lower_callback(self):
