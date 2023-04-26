@@ -2,7 +2,7 @@ import tkinter.ttk
 
 import customtkinter
 
-from data import cleanData
+from repo.utils import cleanData
 from ui.colors import colors
 
 

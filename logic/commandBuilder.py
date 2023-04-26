@@ -55,7 +55,7 @@ def bruteforce_attack(app: App, base_command):
 
             # Define charsets in command
             for i in range(len(charsets)):
-                command += f" -{i+1} {charsets[i]}"
+                command += f" -{i + 1} {charsets[i]}"
 
             command += f" {mask}"
         case _:
