@@ -7,11 +7,14 @@ def build_command(app: App):
     hash_type = app.options_frame.hash_type
     device_type = app.options_frame.device_type_var.get()[0]
     workload_profile = app.options_frame.workload_profile_var.get()[0]
+    disable_potfile = app.potfile_check_var.get()
 
     attack_mode = app.options_frame.attack_mode_frame.radio_var.get()
 
     hashcat_dir = hashcat_location.replace("hashcat.exe", "")
-    base_command = f"cd {hashcat_dir} & hashcat.exe {hash_path} -w {workload_profile} -D {device_type} -m {hash_type} -a {attack_mode}"
+    potfile_text = "--potfile-disable" if int(disable_potfile) == 1 else ""
+    base_command = f"cd {hashcat_dir} & hashcat.exe {hash_path} {potfile_text} -w {workload_profile} -D {device_type} -m {hash_type}" \
+                   f" -a {attack_mode}"
 
     match attack_mode:
         case 0:
@@ -33,6 +36,12 @@ def bruteforce_attack(app: App, base_command):
     option = app.options_frame.attack_mode_frame.brute_force_frame.radio_var.get()
     min_password_length = int(app.options_frame.attack_mode_frame.brute_force_frame.min_len_spinbox.spinbox.entry.get())
     max_password_length = int(app.options_frame.attack_mode_frame.brute_force_frame.max_len_spinbox.spinbox.entry.get())
+    charset_entries = app.options_frame.attack_mode_frame.brute_force_frame.custom_charsets_frame.entries
+
+    # Get the list of non-empty charsets
+    charsets = list(map(lambda charset: charset.entry.get(), charset_entries))
+    charsets = list(filter(lambda charset: charset != "", charsets))
+
     command = base_command
     match option:
         case 1:  # Lower Alpha
@@ -41,8 +50,14 @@ def bruteforce_attack(app: App, base_command):
             command += f" {max_password_length * '?u'}"
         case 3:  # Numeric
             command += f" {max_password_length * '?d'}"
-        case 4:  # Custom Charset
-            pass
+        case 4:  # Custom mask
+            mask = app.options_frame.attack_mode_frame.brute_force_frame.mask_entry.get()
+
+            # Define charsets in command
+            for i in range(len(charsets)):
+                command += f" -{i+1} {charsets[i]}"
+
+            command += f" {mask}"
         case _:
             pass
 

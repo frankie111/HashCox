@@ -11,7 +11,7 @@ class ExecSelectorFrame(customtkinter.CTkFrame):
     def __init__(self, master: any, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.check_var = customtkinter.IntVar(value=1)
+        self.save_check_var = customtkinter.IntVar(value=1)
 
         self.exec_title_label = customtkinter.CTkLabel(self, text="Hashcat Location",
                                                        font=("Roboto", 18, "bold"))
@@ -25,6 +25,7 @@ class ExecSelectorFrame(customtkinter.CTkFrame):
                                                      file_types=(("executables", "*.exe"), ("all files", "*.*")))
         self.exec_file_explorer.grid(column=0, row=1, columnspan=4, padx=(10, 0), pady=5)
 
-        self.exec_save_checkbox = customtkinter.CTkCheckBox(self, text="Remember Location", variable=self.check_var,
+        self.exec_save_checkbox = customtkinter.CTkCheckBox(self, text="Remember Location",
+                                                            variable=self.save_check_var,
                                                             onvalue=1, offvalue=0)
-        self.exec_save_checkbox.grid(column=3, row=2, padx=(10, 0))
+        self.exec_save_checkbox.grid(column=3, row=2, sticky="e")

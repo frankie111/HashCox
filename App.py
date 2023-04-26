@@ -32,6 +32,13 @@ class App(customtkinter.CTk):
         self.run_frame = RunFrame(master=self, run_callback=self.run_callback)
         self.run_frame.grid(column=0, row=2)
 
+        self.potfile_check_var = customtkinter.IntVar(value=0)
+        self.disable_potfile_checkbox = customtkinter.CTkCheckBox(self, text="Disable Potfile",
+                                                                  variable=self.potfile_check_var,
+                                                                  onvalue=1, offvalue=0)
+
+        self.disable_potfile_checkbox.grid(column=0, row=3, sticky="e", padx=(0, 35), pady=(5, 0))
+
     def run_callback(self):
         command = commandBuilder.build_command(self)
         os.system(f'start cmd /k "{command}"')
